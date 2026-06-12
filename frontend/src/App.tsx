@@ -4,10 +4,11 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { BrowserRouter, Link, NavLink, Route, Routes, useLocation } from 'react-router-dom'
-import { DiaryPage }   from './pages/DiaryPage'
-import { AddEntryPage } from './pages/AddEntryPage'
-import { ProductsPage } from './pages/ProductsPage'
-import { SettingsPage } from './pages/SettingsPage'
+import { DiaryPage }      from './pages/DiaryPage'
+import { AddEntryPage }   from './pages/AddEntryPage'
+import { ProductsPage }   from './pages/ProductsPage'
+import { ProductNewPage } from './pages/ProductNewPage'
+import { SettingsPage }   from './pages/SettingsPage'
 
 // QueryClient — глобальный кеш запросов.
 // staleTime: 60 сек — данные считаются свежими 1 минуту, не перезапрашиваются.
@@ -69,10 +70,11 @@ function Layout() {
       {/* Контент страницы */}
       <main className="px-4 py-4">
         <Routes>
-          <Route path="/"         element={<DiaryPage />} />
-          <Route path="/add"      element={<AddEntryPage />} />
-          <Route path="/products" element={<ProductsPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/"              element={<DiaryPage />} />
+          <Route path="/add"           element={<AddEntryPage />} />
+          <Route path="/products"      element={<ProductsPage />} />
+          <Route path="/products/new"  element={<ProductNewPage />} />
+          <Route path="/settings"      element={<SettingsPage />} />
         </Routes>
       </main>
 

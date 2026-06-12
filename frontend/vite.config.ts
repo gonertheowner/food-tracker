@@ -1,6 +1,8 @@
+/// <reference types="vitest" />
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import { resolve } from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -51,6 +53,9 @@ export default defineConfig({
       },
     }),
   ],
+  resolve: {
+    alias: { '@': resolve(__dirname, './src') },
+  },
   server: {
     port: 5173,
     proxy: {
@@ -60,5 +65,10 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+  },
+  test: {
+    environment: 'jsdom',
+    setupFiles: ['./src/test/setup.ts'],
+    globals: false,
   },
 })
