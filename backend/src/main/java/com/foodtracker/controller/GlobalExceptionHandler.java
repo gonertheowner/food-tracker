@@ -1,6 +1,7 @@
 package com.foodtracker.controller;
 
 import com.foodtracker.dto.ErrorResponse;
+import com.foodtracker.exception.DishNotFoundException;
 import com.foodtracker.exception.ProductNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,18 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ProductNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleProductNotFound(ProductNotFoundException ex, HttpServletRequest request) {
+        return ErrorResponse.builder()
+                .timestamp(Instant.now())
+                .status(HttpStatus.NOT_FOUND.value())
+                .error(HttpStatus.NOT_FOUND.getReasonPhrase())
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .build();
+    }
+
+    @ExceptionHandler(DishNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleDishNotFound(DishNotFoundException ex, HttpServletRequest request) {
         return ErrorResponse.builder()
                 .timestamp(Instant.now())
                 .status(HttpStatus.NOT_FOUND.value())
