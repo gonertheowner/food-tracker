@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd">
+
+    <changeSet id="0001-create-users" author="foodtracker">
+        <createTable tableName="users">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="email" type="TEXT">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password_hash" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="goal_calories" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="goal_protein_g" type="INT"/>
+            <column name="goal_fat_g" type="INT"/>
+            <column name="goal_carb_g" type="INT"/>
+            <column name="created_at" type="TIMESTAMPTZ" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="0001-create-products" author="foodtracker">
+        <createTable tableName="products">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT"/>
+            <column name="name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="brand" type="TEXT"/>
+            <column name="calories_per_100g" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+            <column name="protein_per_100g" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fat_per_100g" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+            <column name="carb_per_100g" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_public" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMPTZ" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint
+                constraintName="fk_products_user"
+                baseTableName="products" baseColumnNames="user_id"
+                referencedTableName="users" referencedColumnNames="id"/>
+        <createIndex tableName="products" indexName="idx_products_user_id">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="0001-create-dishes" author="foodtracker">
+        <createTable tableName="dishes">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_public" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total_weight_g" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMPTZ" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint
+                constraintName="fk_dishes_user"
+                baseTableName="dishes" baseColumnNames="user_id"
+                referencedTableName="users" referencedColumnNames="id"/>
+        <createIndex tableName="dishes" indexName="idx_dishes_user_id">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="0001-create-dish-items" author="foodtracker">
+        <createTable tableName="dish_items">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="dish_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount_g" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint
+                constraintName="fk_dish_items_dish"
+                baseTableName="dish_items" baseColumnNames="dish_id"
+                referencedTableName="dishes" referencedColumnNames="id"/>
+        <addForeignKeyConstraint
+                constraintName="fk_dish_items_product"
+                baseTableName="dish_items" baseColumnNames="product_id"
+                referencedTableName="products" referencedColumnNames="id"/>
+        <createIndex tableName="dish_items" indexName="idx_dish_items_dish">
+            <column name="dish_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="0001-create-entries" author="foodtracker">
+        <createTable tableName="entries">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="eaten_at" type="TIMESTAMPTZ">
+                <constraints nullable="false"/>
+            </column>
+            <column name="meal_type" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="source_type" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="BIGINT"/>
+            <column name="dish_id" type="BIGINT"/>
+            <column name="amount_g" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+            <column name="calories" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+            <column name="protein_g" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fat_g" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+            <column name="carb_g" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint
+                constraintName="fk_entries_user"
+                baseTableName="entries" baseColumnNames="user_id"
+                referencedTableName="users" referencedColumnNames="id"/>
+        <addForeignKeyConstraint
+                constraintName="fk_entries_product"
+                baseTableName="entries" baseColumnNames="product_id"
+                referencedTableName="products" referencedColumnNames="id"/>
+        <addForeignKeyConstraint
+                constraintName="fk_entries_dish"
+                baseTableName="entries" baseColumnNames="dish_id"
+                referencedTableName="dishes" referencedColumnNames="id"/>
+        <sql>
+            ALTER TABLE entries
+                ADD CONSTRAINT chk_meal_type
+                    CHECK (meal_type IN ('BREAKFAST', 'LUNCH', 'DINNER', 'SNACK'));
+            ALTER TABLE entries
+                ADD CONSTRAINT chk_source_type
+                    CHECK (source_type IN ('PRODUCT', 'DISH'));
+            ALTER TABLE entries
+                ADD CONSTRAINT chk_source_exclusive
+                    CHECK (
+                        (product_id IS NOT NULL AND dish_id IS NULL)
+                        OR
+                        (product_id IS NULL AND dish_id IS NOT NULL)
+                    );
+        </sql>
+        <createIndex tableName="entries" indexName="idx_entries_user_id">
+            <column name="user_id"/>
+        </createIndex>
+        <createIndex tableName="entries" indexName="idx_entries_eaten_at">
+            <column name="eaten_at"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>
