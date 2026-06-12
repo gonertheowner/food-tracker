@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      viewport meta: width=device-width — ширина по устройству,
+      initial-scale=1 — без авtozoom,
+      viewport-fit=cover — контент заходит под "чёлку" (notch) на iPhone
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- Цвет строки статуса на Android -->
+    <meta name="theme-color" content="#16a34a" />
+
+    <!-- iOS: иконка на экране и статус бар -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="FoodTracker" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
+    <title>Food Tracker</title>
+  </head>
+  <body>
+    <!-- React монтируется сюда -->
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
