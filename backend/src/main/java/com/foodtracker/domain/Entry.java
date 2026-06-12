@@ -19,9 +19,8 @@ public class Entry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @Column(name = "eaten_at", nullable = false)
     private OffsetDateTime eatenAt;
@@ -34,13 +33,11 @@ public class Entry {
     @Column(name = "source_type", nullable = false)
     private SourceType sourceType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @Column(name = "product_id")
+    private Long productId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dish_id")
-    private Dish dish;
+    @Column(name = "dish_id")
+    private Long dishId;
 
     @Column(name = "amount_g", nullable = false, precision = 10, scale = 2)
     private BigDecimal amountG;
