@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 @Entity
-@Table(name = "entries")
+@Table(name = "entries", schema = "food_tracker")
 @Getter
 @Setter
 @NoArgsConstructor

@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/foodtracker
-    username: foodtracker
-    password: foodtracker
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:foodtracker}
+    username: ${DB_USER:foodtracker}
+    password: ${DB_PASSWORD:foodtracker}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -13,9 +13,12 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+        default_schema: food_tracker
 
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
+    default-schema: food_tracker
+    liquibase-schema: food_tracker
 
 server:
   port: 8080

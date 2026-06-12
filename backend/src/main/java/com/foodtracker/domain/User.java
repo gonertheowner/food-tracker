@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.time.OffsetDateTime;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", schema = "food_tracker")
 @Getter
 @Setter
 @NoArgsConstructor
