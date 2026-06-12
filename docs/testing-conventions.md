@@ -1,5 +1,7 @@
 # Testing Conventions
 
+> **Frontend testing:** see [docs/frontend/testing.md](frontend/testing.md) for the frontend-specific strategy (Vitest + RTL + MSW).
+
 ## Three-Layer Testing Strategy
 
 Every feature is tested at three layers: controller, service, and repository. Each layer has its own scope, tooling, and test base class.
