@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd">
+
+    <changeSet id="0002-amountg-to-int" author="foodtracker">
+        <sql>
+            ALTER TABLE entries ALTER COLUMN amount_g TYPE INT USING ROUND(amount_g)::INT;
+            ALTER TABLE dish_items ALTER COLUMN amount_g TYPE INT USING ROUND(amount_g)::INT;
+        </sql>
+        <rollback>
+            ALTER TABLE entries ALTER COLUMN amount_g TYPE NUMERIC(10,2) USING amount_g::NUMERIC;
+            ALTER TABLE dish_items ALTER COLUMN amount_g TYPE NUMERIC(10,2) USING amount_g::NUMERIC;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
