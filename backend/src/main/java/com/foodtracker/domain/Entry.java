@@ -39,8 +39,8 @@ public class Entry {
     @Column(name = "dish_id")
     private Long dishId;
 
-    @Column(name = "amount_g", nullable = false, precision = 10, scale = 2)
-    private BigDecimal amountG;
+    @Column(name = "amount_g", nullable = false)
+    private Integer amountG;
 
     @Column(name = "calories", nullable = false, precision = 10, scale = 2)
     private BigDecimal calories;
