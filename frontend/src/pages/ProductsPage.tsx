@@ -5,11 +5,12 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Input } from '@/components/ui/Input'
 import { NutritionBadge } from '@/components/NutritionBadge'
-import { useProductSearch } from '@/hooks/useProducts'
+import { useDeleteProduct, useProductSearch } from '@/hooks/useProducts'
 
 export function ProductsPage() {
   const [query, setQuery] = useState('')
   const { data, isLoading } = useProductSearch(query)
+  const { mutate: remove, isPending: isDeleting, variables: deletingId } = useDeleteProduct()
 
   return (
     <div className="space-y-4">
@@ -41,6 +42,15 @@ export function ProductsPage() {
                 {p.brand && <p className="text-xs text-gray-400">{p.brand}</p>}
                 <NutritionBadge nutrition={p.nutrition} className="mt-0.5" />
               </div>
+              <button
+                type="button"
+                aria-label="Удалить"
+                disabled={isDeleting && deletingId === p.id}
+                onClick={() => remove(p.id)}
+                className="ml-3 p-1 text-gray-300 transition-colors hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                ✕
+              </button>
             </li>
           ))}
           {data.content.length === 0 && (
