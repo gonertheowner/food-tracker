@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "dishes")
+@Table(name = "dishes", schema = "food_tracker")
 @Getter
 @Setter
 @NoArgsConstructor
