@@ -22,7 +22,7 @@
 | Слой | Технология |
 |------|-----------|
 | Бэкенд | Java 21, Spring Boot 3, Maven |
-| БД | PostgreSQL (миграции — Flyway) |
+| БД | PostgreSQL (миграции — Liquibase) |
 | Фронтенд | React + Vite + TypeScript, PWA (vite-plugin-pwa) |
 | Графики | Recharts |
 | Деплой | Docker Compose: nginx (TLS) + spring + postgres, на VM Selectel |
@@ -48,8 +48,8 @@
 
 ### Фаза 0 — каркас
 - [x] Документация: CONTEXT, ADR, модель данных
-- [ ] Скелет монорепо: `backend/` (Spring Boot init), `frontend/` (Vite + React + TS), `docker-compose.yml`
-- [ ] PostgreSQL в Docker, подключение бэка, первая Flyway-миграция (схема из data-model.md)
+- [x] Скелет монорепо: `backend/` (Spring Boot init), `frontend/` (Vite + React + TS), `docker-compose.yml`
+- [x] PostgreSQL в Docker, подключение бэка, первая Liquibase-миграция (схема из data-model.md)
 
 ### Фаза 1 — продукты и блюда
 - [ ] CRUD Продуктов + seed-импорт (CSV ~100–300 ходовых продуктов)
