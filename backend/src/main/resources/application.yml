@@ -14,9 +14,8 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
 
-  flyway:
-    enabled: true
-    locations: classpath:db/migration
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
 
 server:
   port: 8080
